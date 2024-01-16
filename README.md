@@ -6,10 +6,19 @@ Requirements:
     - [Pyenv](https://github.com/pyenv/pyenv) for installing Python 3.11+
     - [Poetry](https://python-poetry.org/) for installing dependencies
 
+Easy Pyenv setup:
+
+    # Install curl
+    sudo apt install curl
+
+    # Install Pyenv
+    bash <(curl -sSL https://raw.githubusercontent.com/zaemiel/ubuntu-pyenv-installer/master/ubuntu-pyenv-installer.sh)
+
 Install dependencies:
 
     # Install Python specified in `.python-version`
     pyenv install
+
     # Install dependencies specified in `pyproject.toml`
     poetry install
 
@@ -22,6 +31,7 @@ try `poetry env remove --all` and then `poetry install` again.
 Typecheck and run tests:
 
     ./check.sh
+
     # or individually:
     poetry run mypy .
     poetry run pytest -vv
