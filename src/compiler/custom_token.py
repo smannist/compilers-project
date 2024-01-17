@@ -8,7 +8,7 @@ class L:
         return f"L(line={self.line}, column={self.column})"
 
 class Token:
-    def __init__(self, loc: L, type: str, value: str):
+    def __init__(self, loc: L, type: str | None, value: str):
         self.loc = loc
         self.type = type
         self.text = value
