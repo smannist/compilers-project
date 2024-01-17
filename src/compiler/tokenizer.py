@@ -1,33 +1,38 @@
 import re as regex
+from helpers import merge_regex
+from custom_token import Token, L
 
-def tokenize(source_code: str) -> list[str]:
+def tokenize(source_code: str) -> list[Token]:
     tokens = []
 
-    identifiers = regex.compile(r'(?P<IDENTIFIER>_?[A-Za-z_]+[a-zA-Z0-9_]*)')
-    int_literals = regex.compile(r'(?P<INT_LITERAL>\-?\b[1-9]+\b|\b0\b)')
-    newline = regex.compile(r'(?P<NEWLINE>\n)')
-    whitespace = regex.compile(r'(?P<WHITESPACE>[ \t]+)')
-    exception = regex.compile(r'(?P<EXCEPT>.|//)')
+    line = 0
+    column = 0
 
-    merged_regex = regex.compile("|".join(
-        [identifiers.pattern,
-         int_literals.pattern,
-         newline.pattern,
-         whitespace.pattern,
-         exception.pattern]
-    ))
-
-    for match in merged_regex.finditer(source_code):
+    for match in regex.finditer(merge_regex(), source_code):
         token_type = match.lastgroup
         value = match.group()
 
         if token_type == "NEWLINE":
+            line += 1
+            column = 0
             continue
         elif token_type == "WHITESPACE":
+            column += len(value)
             continue
         elif token_type == "EXCEPT":
-            raise RuntimeError(f"Invalid character: '{value}'")
+            raise RuntimeError(
+                f"Caught unexpected value: '{value}' at position ({line}, {column}).")
 
-        tokens.append(value)
+        tokens.append(Token(L(line, column), token_type, value))
+
+        column += len(value)
 
     return tokens
+
+
+if __name__ == "__main__":
+    tokens = (
+        tokenize("if it works do not touch it \nby great philosopher of 2024"))
+
+    for token in tokens:
+        print(token)
