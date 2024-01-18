@@ -1,6 +1,6 @@
 import re as regex
-from compiler.helpers import merge_regex
-from compiler.custom_token import Token, L
+from helpers import merge_regex
+from custom_token import Token, L
 
 def tokenize(source_code: str) -> list[Token]:
     tokens = []
