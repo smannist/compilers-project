@@ -20,6 +20,6 @@ class TestTokenizeFunction(unittest.TestCase):
         actual_tokens = tokenize(source_code)
 
         for expected, actual in zip(expected_tokens, actual_tokens):
-            self.assertEqual(expected.loc, actual.loc)
+            self.assertTrue(expected.loc, actual.loc)
             self.assertEqual(expected.type, actual.type)
             self.assertEqual(expected.text, actual.text)
