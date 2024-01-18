@@ -1,6 +1,7 @@
 import unittest
 from compiler.tokenizer import tokenize
 from compiler.custom_token import Token, L
+
 class TestTokenizeFunction(unittest.TestCase):
     def test_source_code_is_tokenized_correctly(self) -> None:
         source_code = "If x is not 10 then return 1"
