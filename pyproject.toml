@@ -27,6 +27,7 @@ build-backend = "poetry.core.masonry.api"
 pythonpath = [".", "src", "src/compiler"]
 addopts = [
     "--import-mode=importlib",
+    "-s",
 ]
 
 [virtualenvs]
