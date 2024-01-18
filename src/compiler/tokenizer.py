@@ -21,7 +21,7 @@ def tokenize(source_code: str) -> list[Token]:
             continue
         elif token_type == "EXCEPT":
             raise RuntimeError(
-                f"Caught unexpected value: '{value}' at position ({line}, {column}).")
+                f"Caught unexpected value: '{value}' at position ({line},{column}).")
 
         tokens.append(Token(L(line, column), token_type, value))
 

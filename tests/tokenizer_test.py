@@ -20,6 +20,15 @@ class TestTokenizeFunction(unittest.TestCase):
         actual_tokens = tokenize(source_code)
 
         for expected, actual in zip(expected_tokens, actual_tokens):
-            self.assertTrue(expected.loc, actual.loc)
+            self.assertEqual(expected.loc, actual.loc)
             self.assertEqual(expected.type, actual.type)
             self.assertEqual(expected.text, actual.text)
+
+    def test_invalid_input_is_not_accepted(self) -> None:
+        source_code = "!"
+
+        with self.assertRaises(RuntimeError) as context:
+            tokenize(source_code)
+
+        self.assertEqual(str(context.exception),
+                         "Caught unexpected value: '!' at position (0,0).")

@@ -6,8 +6,10 @@ class L:
     def __str__(self) -> str:
         return f"L(line={self.line}, column={self.column})"
 
-    def __eq__(self, target: object) -> bool:
-        return isinstance(target, L) and self.line == target.line and self.column == target.column
+    def __eq__(self, object: object) -> bool:
+        if (type(object).__name__ == "L" and hasattr(object, "line") and hasattr(object, "column")):
+            return self.line == object.line and self.column == object.column
+        return False
 
 class Token:
     def __init__(self, loc: L, type: str | None, value: str):
