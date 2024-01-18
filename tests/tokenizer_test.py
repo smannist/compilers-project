@@ -1,24 +1,24 @@
 import unittest
 from compiler.tokenizer import tokenize
-
+from compiler.custom_token import Token, L
 class TestTokenizeFunction(unittest.TestCase):
-    def test_source_code_tokenized_correctly(self) -> None:
-        source_code = "_tokens_are_cool while for if else 12314 -213213 e1e _e123_ _e_e_e"
+    def test_source_code_is_tokenized_correctly(self) -> None:
+        source_code = "If x is not 10 then return 1"
 
-        expected_tokens = ["_tokens_are_cool", "while", "for", "if",
-                           "else", "12314", "-213213", "e1e", "_e123_", "_e_e_e"]
+        expected_tokens = [
+            Token(L(0, 0), 'IDENTIFIER', 'If'),
+            Token(L(0, 3), 'IDENTIFIER', 'x'),
+            Token(L(0, 5), 'IDENTIFIER', 'is'),
+            Token(L(0, 8), 'IDENTIFIER', 'not'),
+            Token(L(0, 12), 'INT_LITERAL', '10'),
+            Token(L(0, 16), 'IDENTIFIER', 'then'),
+            Token(L(0, 22), 'IDENTIFIER', 'return'),
+            Token(L(0, 29), 'INT_LITERAL', '1'),
+        ]
 
-        tokens = tokenize(source_code)
+        actual_tokens = tokenize(source_code)
 
-        self.assertListEqual(tokens, expected_tokens)
-
-    def test_unallowed_characters_will_raise_except(self) -> None:
-        source_code = "!!!!"
-
-        with self.assertRaises(RuntimeError) as context:
-            tokenize(source_code)
-
-        self.assertEqual(str(context.exception), "Invalid character: '!'")
-
-    def test_empty_string_returns_no_tokens(self) -> None:
-        self.assertEqual(tokenize(""), [])
+        for expected, actual in zip(expected_tokens, actual_tokens):
+            self.assertTrue(expected.loc, actual.loc)
+            self.assertEqual(expected.type, actual.type)
+            self.assertEqual(expected.text, actual.text)

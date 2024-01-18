@@ -28,11 +28,3 @@ def tokenize(source_code: str) -> list[Token]:
         column += len(value)
 
     return tokens
-
-
-if __name__ == "__main__":
-    tokens = (
-        tokenize("if it works do not touch it \nby great philosopher of 2024"))
-
-    for token in tokens:
-        print(token)
