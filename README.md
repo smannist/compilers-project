@@ -1,4 +1,3 @@
-
 ## Setup
 
 Requirements:
@@ -6,7 +5,7 @@ Requirements:
     - [Pyenv](https://github.com/pyenv/pyenv) for installing Python 3.11+
     - [Poetry](https://python-poetry.org/) for installing dependencies
 
-Easy Pyenv setup:
+Easy Pyenv setup on Ubuntu:
 
     # Install curl
     sudo apt install curl
