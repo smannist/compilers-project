@@ -5,7 +5,7 @@ from compiler.custom_token import Token, L
 
 class TestTokenizeFunction(unittest.TestCase):
     def test_source_code_is_tokenized_correctly(self) -> None:
-        source_code = "If x is not 10 then return 1 = 5"
+        source_code = "If x is not 10 then return 1 = 5 ### this is a comment \n // this is also a comment \n but this is not"
 
         expected_tokens = [
             Token(L(0, 0), "IDENTIFIER", "If"),
@@ -18,6 +18,10 @@ class TestTokenizeFunction(unittest.TestCase):
             Token(L(0, 27), "INT_LITERAL", "1"),
             Token(L(0, 29), "OPERATOR", "="),
             Token(L(0, 31), "INT_LITERAL", "5"),
+            Token(L(2, 85), "IDENTIFIER", "but"),
+            Token(L(2, 89), "IDENTIFIER", "this"),
+            Token(L(2, 94), "IDENTIFIER", "is"),
+            Token(L(2, 97), "IDENTIFIER", "not"),
         ]
 
         actual_tokens = tokenize(source_code)
@@ -56,10 +60,27 @@ class TestTokenizeFunction(unittest.TestCase):
         ("<<"),
         ("!=="),
         ("*="),
-        ("//"),
     ])
     def test_incorrect_operators_raise_a_runtime_error(self, source_code):
         with self.assertRaises(RuntimeError) as context:
             tokenize(source_code)
 
         self.assertIn("Caught unexpected value", str(context.exception))
+
+    @parameterized.expand([
+        ("()", ["PARENTHESES", "(", ")"]),
+        ("{}", ["PARENTHESES", "{", "}"]),
+        ("[]", ["PARENTHESES", "[", "]"]),
+    ])
+    def test_correct_parentheses_are_recognized(self, source_code, expected):
+        expected_tokens = [
+            Token(L(0, 0), expected[0], expected[1]),
+            Token(L(0, 1), expected[0], expected[2])
+        ]
+
+        actual_tokens = tokenize(source_code)
+
+        for expected, actual in zip(expected_tokens, actual_tokens):
+            self.assertEqual(expected.loc, actual.loc)
+            self.assertEqual(expected.type, actual.type)
+            self.assertEqual(expected.text, actual.text)

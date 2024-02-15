@@ -19,6 +19,10 @@ def tokenize(source_code: str) -> list[Token]:
         elif token_type == "WHITESPACE":
             column += len(value)
             continue
+        elif token_type == "COMMENT":
+            column += len(value)
+            line += 1
+            continue
         elif token_type == "EXCEPT":
             raise RuntimeError(
                 f"Caught unexpected value: '{value}' at position ({line},{column}).")
