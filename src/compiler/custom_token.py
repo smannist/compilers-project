@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-@dataclass
+@dataclass(frozen=True)
 class L:
     line: int
     column: int
@@ -13,7 +13,7 @@ class L:
             return self.line == object.line and self.column == object.column
         return False
 
-@dataclass
+@dataclass(frozen=True)
 class Token:
     loc: L
     type: str | None
