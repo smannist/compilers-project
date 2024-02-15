@@ -12,16 +12,12 @@ def tokenize(source_code: str) -> list[Token]:
         token_type = match.lastgroup
         value = match.group()
 
-        if token_type == "NEWLINE":
+        if token_type == "NEWLINE" or token_type == "COMMENT":
             line += 1
             column = 0
             continue
         elif token_type == "WHITESPACE":
             column += len(value)
-            continue
-        elif token_type == "COMMENT":
-            line += 1
-            column = 0
             continue
         elif token_type == "EXCEPT":
             raise RuntimeError(
