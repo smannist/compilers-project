@@ -50,15 +50,15 @@ class TestTokenizeFunction(unittest.TestCase):
         self.assertEqual(actual_tokens[0].text, expected_token.text)
 
     @parameterized.expand([
-        ("!===", ["OPERATOR", "!="]),
-        ("===", ["OPERATOR", "=="]),
-        ("<=<", ["OPERATOR", "<="]),
-        ("<<", ["OPERATOR", "<"]),
-        ("!==", ["OPERATOR", "!="]),
-        ("*=", ["OPERATOR", "*"]),
-        ("//", ["OPERATOR", "/"]),
+        ("!==="),
+        ("==="),
+        ("<=<"),
+        ("<<"),
+        ("!=="),
+        ("*="),
+        ("//"),
     ])
-    def test_incorrect_operators_raise_a_runtime_error(self, source_code, expected):
+    def test_incorrect_operators_raise_a_runtime_error(self, source_code):
         with self.assertRaises(RuntimeError) as context:
             tokenize(source_code)
 
