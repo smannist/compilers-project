@@ -20,8 +20,8 @@ def tokenize(source_code: str) -> list[Token]:
             column += len(value)
             continue
         elif token_type == "COMMENT":
-            column += len(value)
             line += 1
+            column = 0
             continue
         elif token_type == "EXCEPT":
             raise RuntimeError(
