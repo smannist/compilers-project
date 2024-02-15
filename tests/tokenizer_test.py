@@ -18,10 +18,10 @@ class TestTokenizeFunction(unittest.TestCase):
             Token(L(0, 27), "INT_LITERAL", "1"),
             Token(L(0, 29), "OPERATOR", "="),
             Token(L(0, 31), "INT_LITERAL", "5"),
-            Token(L(2, 85), "IDENTIFIER", "but"),
-            Token(L(2, 89), "IDENTIFIER", "this"),
-            Token(L(2, 94), "IDENTIFIER", "is"),
-            Token(L(2, 97), "IDENTIFIER", "not"),
+            Token(L(2, 1), "IDENTIFIER", "but"),
+            Token(L(2, 5), "IDENTIFIER", "this"),
+            Token(L(2, 10), "IDENTIFIER", "is"),
+            Token(L(2, 13), "IDENTIFIER", "not"),
         ]
 
         actual_tokens = tokenize(source_code)
